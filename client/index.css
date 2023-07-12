@@ -1,0 +1,15 @@
+:root{
+    --background-button: #385986;
+    --color-button: #fff;
+        
+}
+
+*{
+    box-sizing: border-box;
+    
+}
+
+ body{
+    margin: auto;
+    background-image: url(./imagenes/fondo.png);
+}
