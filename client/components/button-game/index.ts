@@ -8,7 +8,7 @@ customElements.define(
     }
 
     render() {
-      const button = document.createElement("button");
+      const button = document.createElement("button") 
       const style = document.createElement("style");
 
       button.textContent = this.textContent;
@@ -32,8 +32,8 @@ customElements.define(
         }
       `;
 
-      this.shadowRoot.appendChild(button);
-      this.shadowRoot.appendChild(style);
+      this.shadowRoot?.appendChild(button);
+      this.shadowRoot?.appendChild(style);
     }
   }
 );

@@ -1,29 +1,30 @@
-import { Router } from "@vaadin/router";
-import { state } from "../../state";
+  import { Router } from "@vaadin/router";
+  import { state } from "../../state";
 
-export class PlayGame extends HTMLElement {
-  constructor() {
-    super();
-  }
+  export class PlayGame extends HTMLElement {
+    constructor() {
+      super();
+    }
 
-  connectedCallback() {
-    this.render();
-    state.subscribe(() => {
-      const cs = state.getState();
-      const currentGame = cs.currentGame;
+    connectedCallback() {
+      this.render();
+      state.subscribe(() => {
+        const cs = state.getState();
+        const currentGame = cs.currentGame;
 
-      const jugador1Choice = currentGame.jugador1.choice;
-      const jugador2Choice = currentGame.jugador2.choice;
-      if (jugador1Choice && jugador2Choice) {
-        Router.go("/results");
-      }
-    });
+        const jugador1Choice = currentGame.jugador1.choice;
+        const jugador2Choice = currentGame.jugador2.choice;
+        if (jugador1Choice && jugador2Choice) {
+          Router.go("/results")
+          }
+        
+      });
 
-    this.addEventListeners();
-  }
+      this.addEventListeners();
+    }
 
-  render() {
-    this.innerHTML = `
+    render() {
+      this.innerHTML = `
         <div class="container">
           <div class="game-area">
           <timer-component class="temp"></timer-component>
@@ -36,8 +37,8 @@ export class PlayGame extends HTMLElement {
         </div>
       `;
 
-    const style = document.createElement("style");
-    style.innerHTML = `
+      const style = document.createElement("style");
+      style.innerHTML = `
         .container {
           display: flex;
           flex-direction: column;
@@ -90,48 +91,48 @@ export class PlayGame extends HTMLElement {
         }
       `;
 
-    this.appendChild(style);
-  }
+      this.appendChild(style);
+    }
 
-  addEventListeners() {
-    const handImages = this.querySelectorAll(".hand-img");
+    addEventListeners() {
+      const handImages = this.querySelectorAll(".hand-img");
 
-    handImages.forEach((image) => {
-      image.addEventListener("click", (e) => {
-        e.preventDefault();
+      handImages.forEach((image) => {
+        image.addEventListener("click", (e) => {
+          e.preventDefault();
 
-        const play = image.getAttribute("data-play");
+          const play = image.getAttribute("data-play");
 
-        handImages.forEach((hand) => {
-          if (hand !== image) {
-            (hand as HTMLElement).style.display = "none";
+          handImages.forEach((hand) => {
+            if (hand !== image) {
+              (hand as HTMLElement).style.display = "none";
+            }
+          });
+
+          (image as HTMLElement).classList.add("selected");
+
+          const cs = state.getState();
+          const jugador1 = cs.currentGame.jugador1.nombre;
+          const jugador2 = cs.currentGame.jugador2.nombre;
+
+          if (jugador2 == cs.nombre) {
+            state.setGame2(play);
+            state.pushGameJugador2(() => {
+              console.log("funciona jugador 2");
+            });
           }
+
+          if (jugador1 === cs.nombre) {
+            state.setGame(play);
+            state.pushGameJugador1(() => {
+              console.log("funciona jugador1");
+            });
+          }
+
+          state.setState(cs);
         });
-
-        (image as HTMLElement).classList.add("selected");
-
-        const cs = state.getState();
-        const jugador1 = cs.currentGame.jugador1.nombre;
-        const jugador2 = cs.currentGame.jugador2.nombre;
-
-        if (jugador2 == cs.nombre) {
-          state.setGame2(play);
-          state.pushGameJugador2(() => {
-            console.log("funciona jugador 2");
-          });
-        }
-
-        if (jugador1 === cs.nombre) {
-          state.setGame(play);
-          state.pushGameJugador1(() => {
-            console.log("funciona jugador1");
-          });
-        }
-
-        state.setState(cs);
       });
-    });
+    }
   }
-}
 
-customElements.define("play-game", PlayGame);
+  customElements.define("play-game", PlayGame);

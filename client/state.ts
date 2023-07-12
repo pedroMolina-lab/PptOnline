@@ -32,6 +32,19 @@ const state = {
     }
   },
 
+  listenRoom() {
+    const cs = this.getState();
+    const chatRoomRef = rtdb.ref("/rooms/" + cs.rtdbRoomId);
+    chatRoomRef.on("value", (snapshot) => {
+      const data = snapshot.val();
+      if (data) {
+        cs.currentGame = data.currentGame;
+      }
+
+      this.setState(cs);
+    });
+  },
+
   getState() {
     return this.data;
   },
@@ -45,7 +58,7 @@ const state = {
     console.log("Soy el state, he cambiado", this.data);
   },
 
-  setNombre(nombre) {
+  setNombre(nombre: string) {
     const cs = this.getState();
     cs.nombre = nombre;
     this.setState(cs);
@@ -81,7 +94,7 @@ const state = {
     }
   },
 
-  askNewRoom(callback) {
+  askNewRoom(callback?) {
     const cs = this.getState();
     if (cs.userId) {
       fetch(apiUrl + "/rooms", {
@@ -108,7 +121,7 @@ const state = {
     }
   },
 
-  accessToRoom(callback?) {
+  accessToRoom(callback) {
     const cs = this.getState();
     const roomId = cs.roomId;
 
@@ -125,19 +138,6 @@ const state = {
       });
   },
 
-  listenRoom() {
-    const cs = this.getState();
-    const chatRoomRef = rtdb.ref("/rooms/" + cs.rtdbRoomId);
-    chatRoomRef.on("value", (snapshot) => {
-      const data = snapshot.val();
-      if (data) {
-        cs.currentGame = data.currentGame;
-      }
-
-      this.setState(cs);
-    });
-  },
-
   results() {
     const cs = this.getState();
     const rtdbId = cs.rtdbRoomId;
@@ -147,8 +147,8 @@ const state = {
       .then((data) => {
         const jugador1Choice = data.jugador1.choice;
         const jugador2Choice = data.jugador2.choice;
-        console.log("el jugador 1 eligió ", jugador1Choice);
-        console.log("el jugador 2 eligió ", jugador2Choice);
+        console.log("el jugador 1 elijio ", jugador1Choice);
+        console.log("el jugador 2 elijio ", jugador2Choice);
 
         const ganador = this.whoWins(jugador1Choice, jugador2Choice);
         if (ganador === "gano jugador 1") {
@@ -195,7 +195,6 @@ const state = {
         }
       });
   },
-
   setRoomId(roomId) {
     const cs = this.getState();
     cs.roomId = roomId;
@@ -212,7 +211,7 @@ const state = {
     this.setState(cs);
   },
 
-  pushGameJugador1(callback?) {
+  pushGameJugador1(callback) {
     const cs = this.getState();
     fetch(apiUrl + "/game/jugador1", {
       method: "post",
@@ -238,7 +237,7 @@ const state = {
       });
   },
 
-  pushGameJugador2(callback?) {
+  pushGameJugador2(callback) {
     const cs = this.getState();
     fetch(apiUrl + "/game/jugador2", {
       method: "post",
@@ -249,6 +248,7 @@ const state = {
         nombre: cs.nombre,
         userId: cs.userId,
         rtdbRoomId: cs.rtdbRoomId,
+
         choice: cs.currentGame.jugador2.choice,
       }),
     })
@@ -273,7 +273,7 @@ const state = {
       },
       body: JSON.stringify({
         rtdbRoomId: cs.rtdbRoomId,
-        choice: "",
+        choice: "", 
       }),
     })
       .then((res) => res.json())
@@ -297,7 +297,7 @@ const state = {
       },
       body: JSON.stringify({
         rtdbRoomId: cs.rtdbRoomId,
-        choice: "",
+        choice: "", 
       }),
     })
       .then((res) => res.json())
@@ -312,13 +312,14 @@ const state = {
       });
   },
 
+
   setGame2(choice) {
     const cs = this.getState();
     cs.currentGame.jugador2.choice = choice;
     this.setState(cs);
   },
 
-  startJugador1(callback) {
+  startJugador1(callback?) {
     const cs = this.getState();
 
     fetch(apiUrl + "/start/jugador1", {
@@ -343,7 +344,7 @@ const state = {
       });
   },
 
-  startJugador2(callback) {
+  startJugador2(callback?) {
     const cs = this.getState();
 
     fetch(apiUrl + "/start/jugador2", {
@@ -389,11 +390,12 @@ const state = {
       });
   },
 
+
   sumarPunto1(callback?) {
     const cs = this.getState();
     cs.currentGame.jugador1.score += 1;
     console.log("actualizando");
-
+    
     if (callback) {
       this.setState(cs);
       callback();
@@ -421,21 +423,23 @@ const state = {
       });
   },
 
-  sumarPunto2(callback?) {
-    const cs = this.getState();
-    cs.currentGame.jugador2.score += 1;
-    console.log("actualizando");
-    if (callback) {
-      this.setState(cs);
-      callback();
-    }
-  },
-
   randomPlay() {
     const move = ["piedra", "papel", "tijera"];
     const RandomPlay = Math.floor(Math.random() * 3);
     return move[RandomPlay];
   },
+
+
+  sumarPunto2(callback?) {
+    const cs = this.getState();
+    cs.currentGame.jugador2.score += 1;
+    console.log("actualizando");
+    if(callback){
+      this.setState(cs);
+      callback()
+    }
+  },
+
 };
 
 export { state };
