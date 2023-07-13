@@ -87,36 +87,42 @@ app.post("/rooms", (req, res) => {
 });
 
 app.get("/rooms/:roomId", (req, res) => {
-  const { userId } = req.query;
   const { roomId } = req.params;
+  const userId = req.query.userId;
 
-  userColl
-    .doc(userId.toString())
-    .get()
-    .then((doc) => {
-      if (doc.exists) {
-        roomColl
-          .doc(roomId)
-          .get()
-          .then((snap) => {
-            const data = snap.data();
+  if (userId) {
+    userColl
+      .doc(userId.toString())
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          roomColl
+            .doc(roomId)
+            .get()
+            .then((snap) => {
+              const data = snap.data();
 
-            if (data) {
-              const roomRef = rtdb.ref("rooms/" + data.rtdbRoomId);
+              if (data) {
+                const roomRef = rtdb.ref("rooms/" + data.rtdbRoomId);
 
-              res.json(data);
-            } else {
-              res.status(404).json({
-                message: "La sala no existe",
-              });
-            }
+                res.json(data);
+              } else {
+                res.status(404).json({
+                  message: "La sala no existe",
+                });
+              }
+            });
+        } else {
+          res.status(401).json({
+            message: "El usuario no existe",
           });
-      } else {
-        res.status(401).json({
-          message: "El usuario no existe",
-        });
-      }
+        }
+      });
+  } else {
+    res.status(400).json({
+      message: "Falta el parámetro 'userId'",
     });
+  }
 });
 
 app.post("/rooms/jugador2", (req, res) => {

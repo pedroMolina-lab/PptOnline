@@ -17,6 +17,7 @@
   "description": "",
   "devDependencies": {
     "@parcel/transformer-image": "^2.0.0-rc.0",
+    "@types/cors": "^2.8.13",
     "@types/node": "^20.2.5",
     "concurrently": "^8.2.0",
     "gh-pages": "^5.0.0",

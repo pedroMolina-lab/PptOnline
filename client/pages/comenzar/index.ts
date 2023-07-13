@@ -82,7 +82,7 @@ export class ComenzarButton extends HTMLElement {
 
     this.appendChild(style);
 
-    const button = this.querySelector(".comenzar-button");
+    const button = this.querySelector(".comenzar-button") as HTMLButtonElement;
     button.addEventListener("click", () => {
       const jugador1 = cs.currentGame.jugador1.nombre;
       const jugador2 = cs.currentGame.jugador2.nombre;
