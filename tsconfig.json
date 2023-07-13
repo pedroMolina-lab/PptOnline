@@ -1,10 +1,9 @@
   {
     "compilerOptions": {
-      // "resolveJsonModule": true,
+      "resolveJsonModule": true,
       "target": "ESNext",
       "outDir": "dist",
-      // "rootDir": "src",
-      // "strictNullChecks": false,
+      "strictNullChecks": false,
       "moduleResolution":"Node"
     
     },
