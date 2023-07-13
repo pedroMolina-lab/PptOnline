@@ -7,5 +7,6 @@
       // "strictNullChecks": false,
       "moduleResolution":"Node"
     
-    }
+    },
+    // "include": ["./client/index.ts"]
   }
