@@ -1,5 +1,6 @@
 
-import * as admin from "firebase-admin"
+// import * as admin from "firebase-admin"
+const admin = require("firebase-admin");
 
 import * as serviceAccount from "../server/key.json"
 
