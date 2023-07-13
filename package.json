@@ -2,6 +2,7 @@
   "scripts": {
     "dev:front": "parcel serve ./client/index.html",
     "dev:back": "nodemon --watch ./server/index.ts --exec ts-node ./server/index.ts",
+    "parcel": "parcel serve ./client/index.html --port 1234",
     "dev": "concurrently \"npm run dev:front\" \"npm run dev:back\"",
     "build:api": "tsc --resolveJsonModule ./server/index.ts",
     "build": "npm run build:front && npm run build:api",
