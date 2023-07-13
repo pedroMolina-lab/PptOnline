@@ -3,7 +3,7 @@
     "dev:front": "parcel serve ./client/index.html",
     "dev:back": "nodemon --watch ./server/index.ts --exec ts-node ./server/index.ts",
     "dev": "concurrently \"npm run dev:front\" \"npm run dev:back\"",
-    "build:api": "tsc ./server/index.ts",
+    "build:api": "tsc --resolveJsonModule ./server/index.ts",
     "build": "npm run build:front && npm run build:api",
     "build:front": "parcel build ./client/index.html",
     "start": "node ./server/index.js",
@@ -19,7 +19,8 @@
     "@parcel/transformer-image": "^2.0.0-rc.0",
     "@types/node": "^20.2.5",
     "concurrently": "^8.2.0",
-    "gh-pages": "^5.0.0"
+    "gh-pages": "^5.0.0",
+    "process": "^0.11.10"
   },
   "dependencies": {
     "@vaadin/router": "^1.7.5",
