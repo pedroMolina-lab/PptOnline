@@ -3,7 +3,7 @@
     "dev:front": "parcel serve ./client/index.html",
     "dev:back": "nodemon --watch ./server/index.ts --exec ts-node ./server/index.ts",
     "dev": "concurrently \"npm run dev:front\" \"npm run dev:back\"",
-    "build:api": "tsc",
+    "build:api": "tsc ./server/index.ts",
     "build": "npm run build:front && npm run build:api",
     "build:front": "parcel build ./client/index.html",
     "start": "node ./server/index.js",
@@ -31,6 +31,7 @@
     "firebase": "^8.10.1",
     "firebase-admin": "^11.10.0",
     "parcel": "^2.0.0-rc.0",
-    "uuid": "^9.0.0"
+    "uuid": "^9.0.0",
+    "typescript": "^4.9.3"
   }
 }
