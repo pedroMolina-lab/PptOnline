@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.rtdb = exports.firestore = void 0;
 var admin = require("firebase-admin");
-var serviceAccount = require("./key.json");
+var serviceAccount = require("../server/key.json");
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
     databaseURL: "https://dwf-modulo6-default-rtdb.firebaseio.com"
