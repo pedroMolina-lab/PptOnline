@@ -2,11 +2,11 @@
     "compilerOptions": {
       // "resolveJsonModule": true,
       "target": "ESNext",
-      // "outDir": "dist",
+      "outDir": "dist",
       // "rootDir": "src",
       // "strictNullChecks": false,
       "moduleResolution":"Node"
     
     },
-    // "include": ["./client/index.ts"]
+    "include": ["./client/index.ts"]
   }
