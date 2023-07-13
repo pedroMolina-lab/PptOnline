@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 var db_1 = require("./db");
 var express = require("express");
 var uuid_1 = require("uuid");
@@ -19,18 +19,18 @@ app.post("/signup", function (req, res) {
         if (searchResponse.empty) {
             userColl
                 .add({
-                nombre: nombre,
+                nombre: nombre
             })
                 .then(function (newUser) {
                 res.json({
                     id: newUser.id,
-                    new: true,
+                    "new": true
                 });
             });
         }
         else {
             res.status(400).json({
-                id: searchResponse.docs[0].id,
+                id: searchResponse.docs[0].id
             });
         }
     });
@@ -53,9 +53,9 @@ app.post("/rooms", function (req, res) {
                         choice: "",
                         online: true,
                         start: false,
-                        score: 0,
-                    },
-                },
+                        score: 0
+                    }
+                }
             })
                 .then(function () {
                 var roomLongId = roomRef_1.key;
@@ -63,19 +63,19 @@ app.post("/rooms", function (req, res) {
                 roomColl
                     .doc(roomId.toString())
                     .set({
-                    rtdbRoomId: roomLongId,
+                    rtdbRoomId: roomLongId
                 })
                     .then(function () {
                     res.json({
                         id: roomId.toString(),
-                        rtdbRoomId: roomLongId,
+                        rtdbRoomId: roomLongId
                     });
                 });
             });
         }
         else {
             res.status(401).json({
-                message: "El usuario no existe",
+                message: "El usuario no existe"
             });
         }
     });
@@ -100,21 +100,21 @@ app.get("/rooms/:roomId", function (req, res) {
                     }
                     else {
                         res.status(404).json({
-                            message: "La sala no existe",
+                            message: "La sala no existe"
                         });
                     }
                 });
             }
             else {
                 res.status(401).json({
-                    message: "El usuario no existe",
+                    message: "El usuario no existe"
                 });
             }
         });
     }
     else {
         res.status(400).json({
-            message: "Falta el parámetro 'userId'",
+            message: "Falta el parámetro 'userId'"
         });
     }
 });
@@ -129,13 +129,12 @@ app.post("/rooms/jugador2", function (req, res) {
             choice: "",
             online: true,
             start: false,
-            score: 0,
-        },
+            score: 0
+        }
     })
         .then(function () {
         res.status(200).json({ message: "Jugador 2 actualizado correctamente" });
-    })
-        .catch(function (error) {
+    })["catch"](function (error) {
         res.status(500).json({ error: "Error al actualizar Jugador 2" });
     });
 });
@@ -146,8 +145,7 @@ app.post("/game/jugador2", function (req, res) {
         .set(choice)
         .then(function () {
         res.status(200).json({ message: "Jugador 2 actualizado correctamente" });
-    })
-        .catch(function (error) {
+    })["catch"](function (error) {
         res.status(500).json({ error: "Error al actualizar Jugador 2" });
     });
 });
@@ -158,8 +156,7 @@ app.post("/game/jugador1", function (req, res) {
         .set(choice)
         .then(function () {
         res.status(200).json({ message: "Jugador 1 actualizado correctamente" });
-    })
-        .catch(function (error) {
+    })["catch"](function (error) {
         res.status(500).json({ error: "Error al actualizar Jugador 1" });
     });
 });
@@ -170,8 +167,7 @@ app.post("/start/jugador1", function (req, res) {
         .set(start)
         .then(function () {
         res.status(200).json({ message: "Jugador 1 actualizado correctamente" });
-    })
-        .catch(function (error) {
+    })["catch"](function (error) {
         res.status(500).json({ error: "Error al actualizar Jugador 2" });
     });
 });
@@ -182,8 +178,7 @@ app.post("/start/jugador2", function (req, res) {
         .set(start)
         .then(function () {
         res.status(200).json({ message: "Jugador 2 actualizado correctamente" });
-    })
-        .catch(function (error) {
+    })["catch"](function (error) {
         res.status(500).json({ error: "Error al actualizar Jugador 2" });
     });
 });
@@ -194,8 +189,7 @@ app.post("/record/jugador1", function (req, res) {
         .set(jugador1)
         .then(function () {
         res.sendStatus(200);
-    })
-        .catch(function (error) {
+    })["catch"](function (error) {
         console.error("Error al actualizar los registros:", error);
         res.sendStatus(500);
     });
@@ -207,8 +201,7 @@ app.post("/record/jugador2", function (req, res) {
         .set(jugador2)
         .then(function () {
         res.sendStatus(200);
-    })
-        .catch(function (error) {
+    })["catch"](function (error) {
         console.error("Error al actualizar los registros:", error);
         res.sendStatus(500);
     });
@@ -220,8 +213,7 @@ app.post("/reiniciar/jugador1", function (req, res) {
         .set(choice)
         .then(function () {
         res.sendStatus(200);
-    })
-        .catch(function (error) {
+    })["catch"](function (error) {
         console.error("Error al actualizar los registros:", error);
         res.sendStatus(500);
     });
@@ -233,8 +225,7 @@ app.post("/reiniciar/jugador2", function (req, res) {
         .set(choice)
         .then(function () {
         res.sendStatus(200);
-    })
-        .catch(function (error) {
+    })["catch"](function (error) {
         console.error("Error al actualizar los registros:", error);
         res.sendStatus(500);
     });

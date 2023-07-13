@@ -1,10 +1,12 @@
-
+import * as dotenv from 'dotenv';         
 const admin = require("firebase-admin");
+dotenv.config()
+const key_json = process.env.KEY_JSON
 
-const serviceAccount = require('../server/key.json')
+
 
 admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount as any),
+    credential: admin.credential.cert(key_json),
     databaseURL: "https://dwf-modulo6-default-rtdb.firebaseio.com"
  });
 
