@@ -2,6 +2,12 @@ import { firestore, rtdb } from "./db";
 import * as express from "express";
 import { v4 as uuid } from "uuid";
 import * as cors from "cors";
+import * as dotenv from "dotenv"
+dotenv.config()
+
+
+console.log("mi nombre es ", process.env.FULL_NAME);
+
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -11,6 +17,7 @@ app.use(express.json());
 
 const userColl = firestore.collection("users");
 const roomColl = firestore.collection("rooms");
+
 
 app.post("/signup", (req, res) => {
   const nombre = req.body.nombre;
