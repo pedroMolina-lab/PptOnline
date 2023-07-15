@@ -4,8 +4,8 @@
       "target": "ESNext",
       "outDir": "dist",
       "strictNullChecks": false,
-      "moduleResolution":"Node"
-    
+      "moduleResolution":"Node",  
+      "module": "commonjs",
     },
     "include": ["./client/index.ts"]
   }
