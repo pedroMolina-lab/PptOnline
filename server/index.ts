@@ -1,19 +1,17 @@
 import { firestore, rtdb } from "./db";
-import express from "express";
+import * as express from "express";
 import { v4 as uuid } from "uuid";
-import cors from "cors";
-import path from "path";
-
+import * as cors from "cors";
+import * as path from "path";
 
 const app = express();
-const port = 3000;
-
-app.use(cors());
-app.use(express.json());
+const port = process.env.PORT || 3000;
 
 const userColl = firestore.collection("users");
 const roomColl = firestore.collection("rooms");
 
+app.use(cors());
+app.use(express.json());
 
 app.post("/signup", (req, res) => {
   const nombre = req.body.nombre;
