@@ -4,6 +4,7 @@ import { v4 as uuid } from "uuid";
 import * as cors from "cors";
 import * as dotenv from "dotenv"
 dotenv.config()
+import path from "path";
 
 
 
@@ -281,11 +282,13 @@ app.get("/jugadores/:rtdbId", (req, res) => {
 });
 
 
-app.use(express.static("../dist"));
-app.get("*", (req, res)=>{
-  res.sendFile(__dirname + "../dist/index.html")
-})
+app.use(express.static(`dist`));
 
+const rute = path.resolve(__dirname, "../dist/", "index.html");
+
+app.get("*", (req, res) => {
+   res.sendFile(rute);
+});
 app.listen(port, () => {
   console.log(`El servidor se está ejecutando en http://localhost:${port}`);
 });
