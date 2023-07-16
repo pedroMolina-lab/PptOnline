@@ -1,7 +1,10 @@
-import { Router } from "@vaadin/router";
-import { state } from "../../state";
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.InicioPage = void 0;
+const router_1 = require("@vaadin/router");
+const state_1 = require("../../state");
 const imageHome = require("url:../../../client/imagenes/img-home.png");
-export class InicioPage extends HTMLElement {
+class InicioPage extends HTMLElement {
     constructor() {
         super();
     }
@@ -10,18 +13,18 @@ export class InicioPage extends HTMLElement {
         const buttonCreate = this.querySelector(".button-game");
         const buttonJoin = this.querySelector(".button-gameUni");
         buttonCreate.addEventListener("click", () => {
-            state.askNewRoom(() => {
-                Router.go("/codigo");
+            state_1.state.askNewRoom(() => {
+                router_1.Router.go("/codigo");
             });
         });
         buttonJoin.addEventListener("click", () => {
             const roomCodeInput = this.querySelector(".room-code-input");
             const roomId = roomCodeInput.value;
             if (roomId) {
-                state.setRoomId(roomId);
-                state.accessToRoom(() => {
-                    state.loginJugador2(() => {
-                        Router.go("/codigo");
+                state_1.state.setRoomId(roomId);
+                state_1.state.accessToRoom(() => {
+                    state_1.state.loginJugador2(() => {
+                        router_1.Router.go("/codigo");
                     });
                 });
             }
@@ -164,4 +167,5 @@ export class InicioPage extends HTMLElement {
         this.appendChild(style);
     }
 }
+exports.InicioPage = InicioPage;
 customElements.define("inicio-page", InicioPage);

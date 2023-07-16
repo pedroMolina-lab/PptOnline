@@ -1,18 +1,21 @@
-import { Router } from "@vaadin/router";
-import { state } from "../../state";
-export class PlayGame extends HTMLElement {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.PlayGame = void 0;
+const router_1 = require("@vaadin/router");
+const state_1 = require("../../state");
+class PlayGame extends HTMLElement {
     constructor() {
         super();
     }
     connectedCallback() {
         this.render();
-        state.subscribe(() => {
-            const cs = state.getState();
+        state_1.state.subscribe(() => {
+            const cs = state_1.state.getState();
             const currentGame = cs.currentGame;
             const jugador1Choice = currentGame.jugador1.choice;
             const jugador2Choice = currentGame.jugador2.choice;
             if (jugador1Choice && jugador2Choice) {
-                Router.go("/results");
+                router_1.Router.go("/results");
             }
         });
         this.addEventListeners();
@@ -97,24 +100,25 @@ export class PlayGame extends HTMLElement {
                     }
                 });
                 image.classList.add("selected");
-                const cs = state.getState();
+                const cs = state_1.state.getState();
                 const jugador1 = cs.currentGame.jugador1.nombre;
                 const jugador2 = cs.currentGame.jugador2.nombre;
                 if (jugador2 == cs.nombre) {
-                    state.setGame2(play);
-                    state.pushGameJugador2(() => {
+                    state_1.state.setGame2(play);
+                    state_1.state.pushGameJugador2(() => {
                         console.log("funciona jugador 2");
                     });
                 }
                 if (jugador1 === cs.nombre) {
-                    state.setGame(play);
-                    state.pushGameJugador1(() => {
+                    state_1.state.setGame(play);
+                    state_1.state.pushGameJugador1(() => {
                         console.log("funciona jugador1");
                     });
                 }
-                state.setState(cs);
+                state_1.state.setState(cs);
             });
         });
     }
 }
+exports.PlayGame = PlayGame;
 customElements.define("play-game", PlayGame);

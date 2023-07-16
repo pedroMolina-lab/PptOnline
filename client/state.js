@@ -1,4 +1,7 @@
-import { rtdb } from "./rtdb";
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.state = void 0;
+const rtdb_1 = require("./rtdb");
 const apiUrl = "http://localhost:3000";
 const state = {
     data: {
@@ -30,7 +33,7 @@ const state = {
     },
     listenRoom() {
         const cs = this.getState();
-        const chatRoomRef = rtdb.ref("/rooms/" + cs.rtdbRoomId);
+        const chatRoomRef = rtdb_1.rtdb.ref("/rooms/" + cs.rtdbRoomId);
         chatRoomRef.on("value", (snapshot) => {
             const data = snapshot.val();
             if (data) {
@@ -402,4 +405,4 @@ const state = {
         }
     },
 };
-export { state };
+exports.state = state;

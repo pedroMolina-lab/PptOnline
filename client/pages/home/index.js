@@ -1,7 +1,10 @@
-import { Router } from "@vaadin/router";
-import { state } from "../../state";
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.HomeComponent = void 0;
+const router_1 = require("@vaadin/router");
+const state_1 = require("../../state");
 const imageHome = require("url:../../../client/imagenes/img-home.png");
-export class HomeComponent extends HTMLElement {
+class HomeComponent extends HTMLElement {
     constructor() {
         super();
     }
@@ -11,9 +14,9 @@ export class HomeComponent extends HTMLElement {
         button.addEventListener("click", () => {
             const nameInput = this.querySelector(".name-input");
             const playerName = nameInput.value;
-            state.setNombre(playerName);
-            state.signUp(() => {
-                Router.go("/inicio");
+            state_1.state.setNombre(playerName);
+            state_1.state.signUp(() => {
+                router_1.Router.go("/inicio");
             }, playerName);
         });
     }
@@ -139,4 +142,5 @@ export class HomeComponent extends HTMLElement {
         this.appendChild(style);
     }
 }
+exports.HomeComponent = HomeComponent;
 customElements.define("home-page", HomeComponent);

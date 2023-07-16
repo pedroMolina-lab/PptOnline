@@ -1,27 +1,30 @@
-import { state } from "../../state";
-import { Router } from "@vaadin/router";
-export class CodigoComponent extends HTMLElement {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.CodigoComponent = void 0;
+const state_1 = require("../../state");
+const router_1 = require("@vaadin/router");
+class CodigoComponent extends HTMLElement {
     constructor() {
         super();
     }
     connectedCallback() {
         this.render();
-        state.subscribe(() => {
+        state_1.state.subscribe(() => {
             this.updateRoomId();
-            const cs = state.getState();
+            const cs = state_1.state.getState();
             const currentGame = cs.currentGame;
             if (currentGame && currentGame.jugador1 && currentGame.jugador2) {
                 const jugador1 = currentGame.jugador1.online;
                 const jugador2 = currentGame.jugador2.online;
                 if (jugador1 && jugador2 && window.location.pathname !== "/playGame" && window.location.pathname !== "/results") {
-                    Router.go("/comenzar");
+                    router_1.Router.go("/comenzar");
                 }
             }
         });
     }
     render() {
-        state.init();
-        const cs = state.getState();
+        state_1.state.init();
+        const cs = state_1.state.getState();
         const roomId = cs.roomId || "";
         const nombreState = cs.nombre || "";
         this.innerHTML = `
@@ -91,7 +94,7 @@ export class CodigoComponent extends HTMLElement {
         this.appendChild(style);
     }
     updateRoomId() {
-        const cs = state.getState();
+        const cs = state_1.state.getState();
         const roomId = cs.roomId || "";
         const roomIdElement = this.querySelector(".roomId");
         if (roomIdElement) {
@@ -99,4 +102,5 @@ export class CodigoComponent extends HTMLElement {
         }
     }
 }
+exports.CodigoComponent = CodigoComponent;
 customElements.define("codigo-page", CodigoComponent);

@@ -1,6 +1,9 @@
-import { Router } from "@vaadin/router";
-import { state } from "../../state";
-export class ComenzarButton extends HTMLElement {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.ComenzarButton = void 0;
+const router_1 = require("@vaadin/router");
+const state_1 = require("../../state");
+class ComenzarButton extends HTMLElement {
     constructor() {
         super();
     }
@@ -8,7 +11,7 @@ export class ComenzarButton extends HTMLElement {
         this.render();
     }
     render() {
-        const cs = state.getState();
+        const cs = state_1.state.getState();
         const currentGame = cs.currentGame;
         const nombreJugador1 = currentGame.jugador1.nombre;
         const nombreJugador2 = currentGame.jugador2.nombre;
@@ -87,18 +90,19 @@ export class ComenzarButton extends HTMLElement {
         });
     }
     startJugador1() {
-        const cs = state.getState();
-        state.startJugador1(() => {
-            Router.go("/playGame");
+        const cs = state_1.state.getState();
+        state_1.state.startJugador1(() => {
+            router_1.Router.go("/playGame");
             // state.sumarPunto1()
             // state.actualizarRecord1()
         });
     }
     startJugador2() {
-        const cs = state.getState();
-        state.startJugador2(() => {
-            Router.go("/playGame");
+        const cs = state_1.state.getState();
+        state_1.state.startJugador2(() => {
+            router_1.Router.go("/playGame");
         });
     }
 }
+exports.ComenzarButton = ComenzarButton;
 customElements.define("comenzar-button", ComenzarButton);

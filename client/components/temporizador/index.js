@@ -1,4 +1,6 @@
-import { state } from "../../state";
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const state_1 = require("../../state");
 customElements.define("timer-component", class Timer extends HTMLElement {
     countdown;
     timerInterval;
@@ -62,7 +64,7 @@ customElements.define("timer-component", class Timer extends HTMLElement {
         countdownElement.classList.add("fade-out");
         setTimeout(() => {
             if (this.countdown === 0) {
-                state.randomPlay();
+                state_1.state.randomPlay();
             }
         }, 500);
     }

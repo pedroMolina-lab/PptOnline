@@ -1,6 +1,9 @@
-import { state } from "../../state";
-import { Router } from "@vaadin/router";
-export class ResultsPage extends HTMLElement {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.ResultsPage = void 0;
+const state_1 = require("../../state");
+const router_1 = require("@vaadin/router");
+class ResultsPage extends HTMLElement {
     constructor() {
         super();
     }
@@ -8,23 +11,23 @@ export class ResultsPage extends HTMLElement {
         this.render();
     }
     render() {
-        const cs = state.getState();
+        const cs = state_1.state.getState();
         const jugador1Choice = cs.currentGame.jugador1.choice;
         const jugador2Choice = cs.currentGame.jugador2.choice;
-        const result = state.whoWins(jugador1Choice, jugador2Choice);
+        const result = state_1.state.whoWins(jugador1Choice, jugador2Choice);
         const jugador1Element = getHandElement(jugador1Choice);
         const jugador2Element = getHandElement(jugador2Choice);
         const jugador1Nombre = cs.currentGame.jugador1.nombre;
         const jugador2Nombre = cs.currentGame.jugador2.nombre;
         let ganador = "Empate";
         if (result === "gano jugador 1") {
-            state.sumarPunto1();
-            state.actualizarRecord1();
+            state_1.state.sumarPunto1();
+            state_1.state.actualizarRecord1();
             ganador = jugador1Nombre;
         }
         else if (result === "gano jugador 2") {
-            state.sumarPunto2();
-            state.actualizarRecord2();
+            state_1.state.sumarPunto2();
+            state_1.state.actualizarRecord2();
             ganador = jugador2Nombre;
         }
         const jugador1Record = cs.currentGame.jugador1.score;
@@ -151,17 +154,18 @@ export class ResultsPage extends HTMLElement {
         }
         const playAgainButton = this.querySelector(".play-again");
         playAgainButton.addEventListener("click", () => {
-            state.reiniciarChoice1();
-            state.reiniciarChoice2();
-            Router.go("/playGame");
+            state_1.state.reiniciarChoice1();
+            state_1.state.reiniciarChoice2();
+            router_1.Router.go("/playGame");
         });
         const newGameButton = this.querySelector(".new-game");
         newGameButton.addEventListener("click", () => {
-            Router.go("/");
+            router_1.Router.go("/");
             setTimeout(() => {
                 window.location.reload();
             }, 10);
         });
     }
 }
+exports.ResultsPage = ResultsPage;
 customElements.define("results-page", ResultsPage);

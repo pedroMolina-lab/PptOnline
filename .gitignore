@@ -3,4 +3,3 @@ dist
 .parcel-cache
 build
 .env
-key.json
