@@ -1,16 +1,14 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var db_1 = require("./db");
-var express = require("express");
+var express_1 = require("express");
 var uuid_1 = require("uuid");
-var cors = require("cors");
-var dotenv = require("dotenv");
-dotenv.config();
-var path = require("path");
-var app = express();
-var port = process.env.PORT || 3000;
-app.use(cors());
-app.use(express.json());
+var cors_1 = require("cors");
+var path_1 = require("path");
+var app = (0, express_1.default)();
+var port = 3000;
+app.use((0, cors_1.default)());
+app.use(express_1.default.json());
 var userColl = db_1.firestore.collection("users");
 var roomColl = db_1.firestore.collection("rooms");
 app.post("/signup", function (req, res) {
@@ -250,8 +248,8 @@ app.get("/jugadores/:rtdbId", function (req, res) {
         res.status(200).json(fullData);
     });
 });
-app.use(express.static("dist"));
-var rute = path.resolve(__dirname, "../dist/", "index.html");
+app.use(express_1.default.static("dist"));
+var rute = path_1.default.resolve(__dirname, "../dist/", "index.html");
 app.get("*", function (req, res) {
     res.sendFile(rute);
 });

@@ -1,8 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.rtdb = exports.firestore = void 0;
-var dotenv = require("dotenv");
-dotenv.config();
 var admin = require("firebase-admin");
 var serviceAccount = require("../server/key.json");
 admin.initializeApp({

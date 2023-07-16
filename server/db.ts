@@ -1,5 +1,3 @@
-import * as dotenv from 'dotenv';         
-dotenv.config()
 const admin = require("firebase-admin");
 const serviceAccount = require("../server/key.json")
 
