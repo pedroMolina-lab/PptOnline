@@ -4,9 +4,7 @@ const admin = require("firebase-admin");
 const serviceAccount = require("../server/key.json")
 
 
-console.log("Valor de FIREBASE_SERVICE_ACCOUNT_KEY:", process.env.FIREBASE_SERVICE_ACCOUNT_KEY);
 
-console.log("la clave es", serviceAccount);
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount as any),

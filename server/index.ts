@@ -3,10 +3,10 @@ import * as express from "express";
 import { v4 as uuid } from "uuid";
 import * as cors from "cors";
 import * as dotenv from "dotenv"
+import path from "path";
 dotenv.config()
 
 
-console.log("mi nombre es ", process.env.FULL_NAME);
 
 
 const app = express();
@@ -281,10 +281,10 @@ app.get("/jugadores/:rtdbId", (req, res) => {
   });
 });
 
+app.use(express.static('dist'))
 
-app.use(express.static("../dist"));
-app.get("*", (req, res)=>{
-  res.sendFile(__dirname + "/dist/index.html")
+app.get("*", (req,res)=>{
+	res.sendFile(path.join(__dirname, "../dist/index.html"));
 })
 
 app.listen(port, () => {
