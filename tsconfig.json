@@ -1,7 +1,10 @@
-  {
-    "compilerOptions": {
-      "target": "ESNext",
-      "moduleResolution":"Node",  
-    },
-    "include": ["./client/index.ts"]
-  }
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true
+  },
+  "include": ["./client/index.ts"]
+}
