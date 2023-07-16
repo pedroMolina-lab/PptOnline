@@ -1,11 +1,7 @@
   {
     "compilerOptions": {
-      "resolveJsonModule": true,
       "target": "ESNext",
-      "outDir": "dist",
-      "strictNullChecks": false,
       "moduleResolution":"Node",  
-      "module": "commonjs",
     },
     "include": ["./client/index.ts"]
   }
