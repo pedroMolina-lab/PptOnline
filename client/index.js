@@ -1,0 +1,15 @@
+import "./components/button-game";
+import "./components/rock-hand";
+import "./components/paper-hand";
+import "./components/scissors-hand";
+import "./components/temporizador";
+import "./pages/home";
+import "./pages/inicio";
+import "./pages/codigo";
+import "./pages/comenzar";
+import "./pages/results";
+import "./pages/playGame";
+import "./pages/results";
+import "./router";
+import { state } from "./state";
+state.init();
