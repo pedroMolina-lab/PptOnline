@@ -4,8 +4,7 @@ import { v4 as uuid } from "uuid";
 import * as cors from "cors";
 import * as dotenv from "dotenv"
 dotenv.config()
-import path from "path";
-
+const path = require("path");
 
 
 
