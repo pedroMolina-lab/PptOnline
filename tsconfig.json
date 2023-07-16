@@ -4,7 +4,8 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "module": "CommonJS"
   },
   "include": ["./client/index.ts"]
 }
