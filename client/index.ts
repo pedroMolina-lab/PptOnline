@@ -12,5 +12,4 @@ import "./pages/playGame"
 import "./pages/results"
 import "./router"
 import { state } from "./state"
-state.init()
 

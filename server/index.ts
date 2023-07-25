@@ -276,13 +276,12 @@ app.get("/jugadores/:rtdbId", (req, res) => {
 });
 
 
-app.use(express.static(`dist`));
-
-const rute = path.resolve(__dirname, "../dist/", "index.html");
+app.use(express.static(path.join(__dirname, "../dist")));
 
 app.get("*", (req, res) => {
-   res.sendFile(rute);
+  res.sendFile(path.join(__dirname, "../dist/index.html"));
 });
+
 app.listen(port, () => {
   console.log(`El servidor se está ejecutando en http://localhost:${port}`);
 });

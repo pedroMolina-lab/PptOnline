@@ -248,10 +248,9 @@ app.get("/jugadores/:rtdbId", function (req, res) {
         res.status(200).json(fullData);
     });
 });
-app.use(express.static("dist"));
-var rute = path.resolve(__dirname, "../dist/", "index.html");
+app.use(express.static(path.join(__dirname, "../dist")));
 app.get("*", function (req, res) {
-    res.sendFile(rute);
+    res.sendFile(path.join(__dirname, "../dist/index.html"));
 });
 app.listen(port, function () {
     console.log("El servidor se est\u00E1 ejecutando en http://localhost:".concat(port));
