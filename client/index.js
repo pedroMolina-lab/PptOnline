@@ -1,0 +1,15 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+require("./components/button-game");
+require("./components/rock-hand");
+require("./components/paper-hand");
+require("./components/scissors-hand");
+require("./components/temporizador");
+require("./pages/home");
+require("./pages/inicio");
+require("./pages/codigo");
+require("./pages/comenzar");
+require("./pages/results");
+require("./pages/playGame");
+require("./pages/results");
+require("./router");

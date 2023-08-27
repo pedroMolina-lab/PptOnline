@@ -1,6 +1,5 @@
 const rock = require("url:../../../client/imagenes/piedra.png");
 customElements.define("rock-el", class Rock extends HTMLElement {
-    shadow;
     constructor() {
         super();
         this.shadow = this.attachShadow({ mode: "open" });

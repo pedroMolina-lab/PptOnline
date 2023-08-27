@@ -1,13 +1,16 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.rtdb = exports.firestore = void 0;
-var admin = require("firebase-admin");
-var serviceAccount = require("../server/key.json");
+const admin = require("firebase-admin");
+const serviceAccount = require("../server/key.json");
+const dotenv = require("dotenv");
+dotenv.config();
+const clave = process.env.FIREBASE_SERVICE_ACCOUNT_KEY;
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
     databaseURL: "https://dwf-modulo6-default-rtdb.firebaseio.com"
 });
-var firestore = admin.firestore();
+const firestore = admin.firestore();
 exports.firestore = firestore;
-var rtdb = admin.database();
+const rtdb = admin.database();
 exports.rtdb = rtdb;

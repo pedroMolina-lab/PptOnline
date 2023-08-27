@@ -1,6 +1,5 @@
 const paper = require("url:../../../client/imagenes/papel.png");
 customElements.define("paper-el", class Paper extends HTMLElement {
-    shadow;
     constructor() {
         super();
         this.shadow = this.attachShadow({ mode: "open" });

@@ -2,8 +2,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const state_1 = require("../../state");
 customElements.define("timer-component", class Timer extends HTMLElement {
-    countdown;
-    timerInterval;
     constructor() {
         super();
         this.attachShadow({ mode: "open" });

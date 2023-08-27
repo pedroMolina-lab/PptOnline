@@ -1,6 +1,5 @@
 const scissors = require("url:../../../client/imagenes/tijeras.png");
 customElements.define("scissors-el", class Rock extends HTMLElement {
-    shadow;
     constructor() {
         super();
         this.shadow = this.attachShadow({ mode: "open" });

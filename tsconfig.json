@@ -4,9 +4,9 @@
     "module": "CommonJS",
     "moduleResolution": "node",
     "resolveJsonModule": true,
-    "allowSyntheticDefaultImports": true,
-    "skipLibCheck": true,
-    "outDir": "./dist"
+    // "outDir": "./dist"
   },
-  "include": ["./client/index.ts"]
+  "include": ["server/**/*","client/**/*"],
+
+  "files": ["./server/index.ts"]
 }

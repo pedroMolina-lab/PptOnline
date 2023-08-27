@@ -39,53 +39,53 @@ app.post("/signup", (req, res) => {
     });
 });
 
-app.post("/rooms", (req, res) => {
-  const { userId, nombre } = req.body;
+app.post("/rooms", async (req, res) => {
+  try {
+    const { userId, nombre } = req.body;
 
-  userColl
-    .doc(userId.toString())
-    .get()
-    .then((doc) => {
-      if (doc.exists) {
-        const roomRef = rtdb.ref("rooms/" + uuid());
+    const doc = await userColl.doc(userId.toString()).get();
 
-        roomRef
-          .set({
-            owner: userId,
-            currentGame: {
-              jugador1: {
-                nombre: nombre,
-                userId: userId,
-                choice: "",
-                online: true,
-                start: false,
-                score: 0,
-              },
-            },
-          })
-          .then(() => {
-            const roomLongId = roomRef.key;
-            const roomId = Math.floor(Math.random() * 9000) + 1000;
+    if (doc.exists) {
+      const roomRef = rtdb.ref("rooms/" + uuid());
 
-            roomColl
-              .doc(roomId.toString())
-              .set({
-                rtdbRoomId: roomLongId,
-              })
-              .then(() => {
-                res.json({
-                  id: roomId.toString(),
-                  rtdbRoomId: roomLongId,
-                });
-              });
-          });
-      } else {
-        res.status(401).json({
-          message: "El usuario no existe",
-        });
-      }
+      await roomRef.set({
+        owner: userId,
+        currentGame: {
+          jugador1: {
+            nombre: nombre,
+            userId: userId,
+            choice: "",
+            online: true,
+            start: false,
+            score: 0,
+          },
+        },
+      });
+
+      const roomLongId = roomRef.key;
+      const roomId = Math.floor(Math.random() * 9000) + 1000;
+
+      await roomColl.doc(roomId.toString()).set({
+        rtdbRoomId: roomLongId,
+      });
+
+      res.json({
+        id: roomId.toString(),
+        rtdbRoomId: roomLongId,
+      });
+    } else {
+      res.status(401).json({
+        message: "El usuario no existe",
+      });
+    }
+  } catch (error) {
+    console.error("Error al crear la sala:", error);
+    res.status(500).json({
+      message: "Error al crear la sala",
     });
+  }
 });
+
 
 app.get("/rooms/:roomId", (req, res) => {
   const { roomId } = req.params;
@@ -274,12 +274,13 @@ app.get("/jugadores/:rtdbId", (req, res) => {
     res.status(200).json(fullData);
   });
 });
+const staticDirPath = path.join(__dirname, "../dist/index.html");
 
 
-app.use(express.static(path.join(__dirname, "../dist")));
+app.use(express.static("dist"));
 
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../dist/index.html"));
+  res.sendFile((staticDirPath));
 });
 
 app.listen(port, () => {

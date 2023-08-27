@@ -1,6 +1,7 @@
 import { rtdb } from "./rtdb";
-
-const apiUrl = "http://localhost:3000";
+import * as  dotenv from "dotenv"
+dotenv.config()
+const apiUrl = process.env.URL_PRODUCT || process.env.URL_DEV ;
 
 const state = {
   data: {
@@ -94,33 +95,36 @@ const state = {
     }
   },
 
-  askNewRoom(callback?) {
+  async askNewRoom(callback?) {
     const cs = this.getState();
     if (cs.userId) {
-      fetch(apiUrl + "/rooms", {
-        method: "post",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify({ userId: cs.userId, nombre: cs.nombre }),
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          cs.roomId = data.id;
-          cs.rtdbRoomId = data.rtdbRoomId;
-
-          this.setState(cs);
-          this.listenRoom();
-
-          if (callback) {
-            callback();
-          }
+      try {
+        const response = await fetch(apiUrl + "/rooms", {
+          method: "post",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify({ userId: cs.userId, nombre: cs.nombre }),
         });
+        
+        const data = await response.json();
+        cs.roomId = data.id;
+        cs.rtdbRoomId = data.rtdbRoomId;
+  
+        this.setState(cs);
+        this.listenRoom();
+  
+        if (callback) {
+          callback();
+        }
+      } catch (error) {
+        console.error("Error al crear la sala:", error);
+      }
     } else {
       console.error("No hay user id");
     }
   },
-
+  
   accessToRoom(callback) {
     const cs = this.getState();
     const roomId = cs.roomId;
