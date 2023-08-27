@@ -23,6 +23,7 @@ export class InicioPage extends HTMLElement {
       });
     });
 
+    
     buttonJoin.addEventListener("click", () => {
       const roomCodeInput = this.querySelector(
         ".room-code-input"
