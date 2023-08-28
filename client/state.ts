@@ -60,41 +60,46 @@ const state = {
   },
 
   setNombre(nombre: string) {
-    const cs = this.getState();
-    cs.nombre = nombre;
-    this.setState(cs);
-  },
-
-  signUp(callback, nombre) {
-    const cs = this.getState();
-    if (nombre) {
-      fetch(apiUrl + "/signup", {
-        method: "post",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify({ nombre: nombre }),
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          console.log("Nombre enviado al backend:", nombre);
-          if (data.id) {
-            cs.userId = data.id;
-            this.setState(cs);
-            callback();
-          } else {
-            callback(true);
-          }
-        })
-        .catch((error) => {
-          console.error(error);
-          callback(true);
-        });
-    } else {
-      callback(true);
+    try {
+      const cs = this.getState();
+      cs.nombre = nombre;
+      this.setState(cs);
+    } catch (error) {
+      console.error("Error en setNombre:", error);
     }
   },
 
+  async signUp(callback, nombre) {
+    try {
+      const cs = this.getState();
+      if (nombre) {
+        const response = await fetch(apiUrl + "/signup", {
+          method: "post",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify({ nombre: nombre }),
+        });
+  
+        const data = await response.json();
+  
+        console.log("Nombre enviado al backend:", nombre);
+        if (data.id) {
+          cs.userId = data.id;
+          this.setState(cs);
+          callback();
+        } else {
+          callback(true);
+        }
+      } else {
+        callback(true);
+      }
+    } catch (error) {
+      console.error("Error en signUp:", error);
+      callback(true);
+    }
+  },
+  
   async askNewRoom(callback?) {
     const cs = this.getState();
     if (cs.userId) {

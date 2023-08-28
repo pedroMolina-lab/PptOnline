@@ -5,28 +5,23 @@ const express = require("express");
 const uuid_1 = require("uuid");
 const cors = require("cors");
 const path = require("path");
+const dotenv = require("dotenv");
+dotenv.config();
 const app = express();
 const port = process.env.PORT || 3000;
 const userColl = db_1.firestore.collection("users");
 const roomColl = db_1.firestore.collection("rooms");
 app.use(cors());
 app.use(express.json());
-app.post("/signup", (req, res) => {
-    const nombre = req.body.nombre;
-    userColl
-        .where("nombre", "==", nombre)
-        .get()
-        .then((searchResponse) => {
+app.post("/signup", async (req, res) => {
+    try {
+        const nombre = req.body.nombre;
+        const searchResponse = await userColl.where("nombre", "==", nombre).get();
         if (searchResponse.empty) {
-            userColl
-                .add({
-                nombre,
-            })
-                .then((newUser) => {
-                res.json({
-                    id: newUser.id,
-                    new: true,
-                });
+            const newUser = await userColl.add({ nombre });
+            res.json({
+                id: newUser.id,
+                new: true,
             });
         }
         else {
@@ -34,7 +29,11 @@ app.post("/signup", (req, res) => {
                 id: searchResponse.docs[0].id,
             });
         }
-    });
+    }
+    catch (error) {
+        console.error("Error en /signup:", error);
+        res.status(500).json({ error: "Error en el servidor" });
+    }
 });
 app.post("/rooms", async (req, res) => {
     try {

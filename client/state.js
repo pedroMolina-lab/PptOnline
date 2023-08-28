@@ -56,22 +56,27 @@ const state = {
         console.log("Soy el state, he cambiado", this.data);
     },
     setNombre(nombre) {
-        const cs = this.getState();
-        cs.nombre = nombre;
-        this.setState(cs);
+        try {
+            const cs = this.getState();
+            cs.nombre = nombre;
+            this.setState(cs);
+        }
+        catch (error) {
+            console.error("Error en setNombre:", error);
+        }
     },
-    signUp(callback, nombre) {
-        const cs = this.getState();
-        if (nombre) {
-            fetch(apiUrl + "/signup", {
-                method: "post",
-                headers: {
-                    "content-type": "application/json",
-                },
-                body: JSON.stringify({ nombre: nombre }),
-            })
-                .then((res) => res.json())
-                .then((data) => {
+    async signUp(callback, nombre) {
+        try {
+            const cs = this.getState();
+            if (nombre) {
+                const response = await fetch(apiUrl + "/signup", {
+                    method: "post",
+                    headers: {
+                        "content-type": "application/json",
+                    },
+                    body: JSON.stringify({ nombre: nombre }),
+                });
+                const data = await response.json();
                 console.log("Nombre enviado al backend:", nombre);
                 if (data.id) {
                     cs.userId = data.id;
@@ -81,13 +86,13 @@ const state = {
                 else {
                     callback(true);
                 }
-            })
-                .catch((error) => {
-                console.error(error);
+            }
+            else {
                 callback(true);
-            });
+            }
         }
-        else {
+        catch (error) {
+            console.error("Error en signUp:", error);
             callback(true);
         }
     },

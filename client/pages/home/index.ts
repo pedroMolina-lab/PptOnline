@@ -9,18 +9,26 @@ export class HomeComponent extends HTMLElement {
   }
   connectedCallback() {
     this.render();
-    const button = this.querySelector(".button-game") as HTMLButtonElement
-    button.addEventListener("click", () => {
-      const nameInput = this.querySelector(".name-input") as HTMLInputElement;
-      const playerName = nameInput.value;
-      state.setNombre(playerName)
-      state.signUp(() => {
-        Router.go("/inicio");
-      }, playerName);
+    const button = this.querySelector(".button-game") as HTMLButtonElement;
+    button.addEventListener("click", async () => {
+      try {
+        const nameInput = this.querySelector(".name-input") as HTMLInputElement;
+        const playerName = nameInput.value;
+        
+        try {
+          state.setNombre(playerName);
+        } catch (error) {
+          console.error("Error en setNombre:", error);
+        }
+        
+        await state.signUp(() => {
+          Router.go("/inicio");
+        }, playerName);
+      } catch (error) {
+        console.error("Error en signUp:", error);
+      }
     });
   }
-
-
 
   render() {
     this.innerHTML = `

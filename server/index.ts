@@ -15,31 +15,30 @@ const roomColl = firestore.collection("rooms");
 app.use(cors());
 app.use(express.json());
 
-app.post("/signup", (req, res) => {
-  const nombre = req.body.nombre;
+app.post("/signup", async (req, res) => {
+  try {
+    const nombre = req.body.nombre;
 
-  userColl
-    .where("nombre", "==", nombre)
-    .get()
-    .then((searchResponse) => {
-      if (searchResponse.empty) {
-        userColl
-          .add({
-            nombre,
-          })
-          .then((newUser) => {
-            res.json({
-              id: newUser.id,
-              new: true,
-            });
-          });
-      } else {
-        res.status(400).json({
-          id: searchResponse.docs[0].id,
-        });
-      }
-    });
+    const searchResponse = await userColl.where("nombre", "==", nombre).get();
+
+    if (searchResponse.empty) {
+      const newUser = await userColl.add({ nombre });
+
+      res.json({
+        id: newUser.id,
+        new: true,
+      });
+    } else {
+      res.status(400).json({
+        id: searchResponse.docs[0].id,
+      });
+    }
+  } catch (error) {
+    console.error("Error en /signup:", error);
+    res.status(500).json({ error: "Error en el servidor" });
+  }
 });
+
 
 app.post("/rooms", async (req, res) => {
   try {
