@@ -1,6 +1,5 @@
 import { Router } from "@vaadin/router";
 import { state } from "../../state";
-
 const imageHome = require("url:../../../client/imagenes/img-home.png");
 
 export class HomeComponent extends HTMLElement {
@@ -17,6 +16,7 @@ export class HomeComponent extends HTMLElement {
         
         try {
           state.setNombre(playerName);
+          
         } catch (error) {
           console.error("Error en setNombre:", error);
         }

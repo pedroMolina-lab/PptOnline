@@ -1,12 +1,12 @@
 {
   "compilerOptions": {
-    "target": "ES2017",
-    "module": "CommonJS",
+    "target": "ESNext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
-    // "outDir": "./dist"
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true
+    
   },
-  "include": ["server/**/*","client/**/*"],
 
   "files": ["./server/index.ts"]
 }

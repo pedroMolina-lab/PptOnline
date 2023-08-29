@@ -5,7 +5,6 @@ customElements.define("button-el", class Button extends HTMLElement {
         this.render();
     }
     render() {
-        var _a, _b;
         const button = document.createElement("button");
         const style = document.createElement("style");
         button.textContent = this.textContent;
@@ -27,7 +26,7 @@ customElements.define("button-el", class Button extends HTMLElement {
           transform: scale(1.1)
         }
       `;
-        (_a = this.shadowRoot) === null || _a === void 0 ? void 0 : _a.appendChild(button);
-        (_b = this.shadowRoot) === null || _b === void 0 ? void 0 : _b.appendChild(style);
+        this.shadowRoot?.appendChild(button);
+        this.shadowRoot?.appendChild(style);
     }
 });
